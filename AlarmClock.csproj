@@ -56,12 +56,4 @@
 			<HintPath>$(TerraInvictaInstallPath)\TerraInvicta_Data\Managed\UnityModManager\UnityModManager.dll</HintPath>
 		</Reference>
 	</ItemGroup>
-	<ItemGroup>
-	  <None Update="alarm_clock">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	  <None Update="alarm_clock.manifest">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	</ItemGroup>
 </Project>
