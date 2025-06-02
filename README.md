@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This is the source code for a Unity Mod Manager mod for the game Terra Invicta.  This mod is [published via Steam](https://steamcommunity.com/sharedfiles/filedetails/?id=3473821709).
+This is the source code for a Unity Mod Manager mod for the game Terra Invicta.  This mod is [published via Steam](https://steamcommunity.com/sharedfiles/filedetails/?id=3489505252).
 
 ## Free Use
 
