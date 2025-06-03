@@ -24,7 +24,7 @@ namespace AlarmClock
         public static bool Load(ModEntry entry)
         {
             Entry = entry;
-            var harmony = new Harmony(entry.Info.Id);
+            var harmony = new Harmony(Entry.Info.Id);
             harmony.PatchAll();
 
             ModSettings = UnityModManager.ModSettings.Load<Settings>(entry);
@@ -45,7 +45,7 @@ namespace AlarmClock
         {
             if (!ModSettings.Enabled || !IsInGame) return;
 
-            AlarmManager.CheckAlarms(entry, ModSettings, AlarmManager.Alarms);
+            AlarmManager.CheckAlarms(AlarmManager.Alarms);
         }
 
         public static bool OnToggle(ModEntry entry, bool value)

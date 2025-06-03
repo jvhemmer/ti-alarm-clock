@@ -7,7 +7,7 @@ using System.Linq;
 using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
-using static UnityModManagerNet.UnityModManager;
+//using static UnityModManagerNet.UnityModManager;
 
 namespace AlarmClock
 {
@@ -15,7 +15,7 @@ namespace AlarmClock
     {
         public static List<Alarm> Alarms = new();
 
-        public static void CheckAlarms(ModEntry Entry, Settings ModSettings, List<Alarm> Alarms)
+        public static void CheckAlarms(List<Alarm> Alarms)
         {
             // Check for alarms and trigger them
             foreach (var alarm in Alarms.ToList())
@@ -24,13 +24,13 @@ namespace AlarmClock
                 {
                     if (alarm.IsReminderDue)
                     {
-                        if (ModSettings.ShowReminder)
+                        if (Main.ModSettings.ShowReminder)
                         {
                             alarm.Remind();
                         }
                         else
                         {
-                            Entry?.Logger.Log($"Reminder for alarm {alarm.Time:dd-MM-yyyy HH-mm-ss} with note '{alarm.Note}' is due, but reminders are disabled.");
+                            Main.Entry?.Logger.Log($"Reminder for alarm {alarm.Time:dd-MM-yyyy HH-mm-ss} with note '{alarm.Note}' is due, but reminders are disabled.");
                         }
                     }
                     else
@@ -40,22 +40,22 @@ namespace AlarmClock
                 }
                 if (alarm.IsDue && !alarm.Triggered)
                 {
-                    Entry?.Logger.Log($"Alarm {alarm.Time:dd-MM-yyyy HH-mm-ss} is now due.");
+                    Main.Entry?.Logger.Log($"Alarm {alarm.Time:dd-MM-yyyy HH-mm-ss} is now due.");
 
                     alarm.Trigger();
 
-                    if (ModSettings.PauseOnAlarm)
+                    if (Main.ModSettings.PauseOnAlarm)
                     {
                         GameTimeManager.Singleton.Pause(); // Pause the game
                     }
                     else
                     {
-                        Entry?.Logger.Log($"Alarm {alarm.Time:dd-MM-yyyy HH-mm-ss} with note '{alarm.Note}' has triggered, but game pause is disabled.");
+                        Main.Entry?.Logger.Log($"Alarm {alarm.Time:dd-MM-yyyy HH-mm-ss} with note '{alarm.Note}' has triggered, but game pause is disabled.");
                     }
 
                     if (alarm.RemoveOnTrigger) Alarms.Remove(alarm);
 
-                    AlarmManager.Save(Main.Entry, ModSettings);
+                    Save();
                 }
             }
         }
@@ -76,7 +76,7 @@ namespace AlarmClock
 
                 UI.ResetInputs();
 
-                Save(Main.Entry, Main.ModSettings);
+                Save();
             }
             else
             {
@@ -98,7 +98,7 @@ namespace AlarmClock
             alarm.EditedTime = alarm.Time.ToString("dd-MM-yyyy HH-mm-ss");
             alarm.EditedNote = alarm.Note;
 
-            Save(Main.Entry, Main.ModSettings);
+            Save();
         }
 
         public static void TrySaveAlarm(Alarm alarm)
@@ -109,7 +109,7 @@ namespace AlarmClock
             alarm.SaveNote(alarm.EditedNote);
             alarm.IsEditing = false;
 
-            Save(Main.Entry, Main.ModSettings);
+            Save();
         }
 
         public static void Load(List<Alarm> SavedAlarms)
@@ -117,10 +117,10 @@ namespace AlarmClock
             Alarms = SavedAlarms ?? new List<Alarm>();
         }
 
-        public static void Save(ModEntry Entry, Settings ModSettings)
+        public static void Save()
         {
-            ModSettings.SavedAlarms = new List<Alarm>(Alarms);
-            ModSettings.Save(Entry);
+            Main.ModSettings.SavedAlarms = new List<Alarm>(Alarms);
+            Main.ModSettings.Save(Main.Entry);
         }
     }
 }
