@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace AlarmClock
 {
+    [Serializable]
     public class Alarm
     {
         // Internal properties

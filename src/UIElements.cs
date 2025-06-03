@@ -11,7 +11,7 @@ namespace AlarmClock
         // STYLES MADE FOR ALARMCLOCK MOD START HERE ===
         public static void LabelTextField(string label, ref string text, int labelWidth = 100, int fieldWidth = 200)
         {
-            using (UI.HorizontalScope())
+            using (ModKit.UI.HorizontalScope())
             {
                 Label(label, labelWidth);
                 TextField(ref text, fieldWidth);
@@ -20,10 +20,10 @@ namespace AlarmClock
 
         public static void ToggleWithLabel(string label, ref bool value)
         {
-            using (UI.HorizontalScope())
+            using (ModKit.UI.HorizontalScope())
             {
-                UI.Toggle("", ref value, GUILayout.Width(20));
-                UI.Label(label);
+                ModKit.UI.Toggle("", ref value, GUILayout.Width(20));
+                ModKit.UI.Label(label);
             }
         }
 
@@ -48,10 +48,10 @@ namespace AlarmClock
 
         public static void Toggle(string text, ref bool value, int width = 200)
         {
-            //UI.Toggle(text, ref value, UI.ChecklyphOn, UI.CheckGlyphOff, width, ToggleStyle);
+            //ModKit.UI.Toggle(text, ref value, ModKit.UI.ChecklyphOn, ModKit.UI.CheckGlyphOff, width, ToggleStyle);
 
             GUILayout.BeginHorizontal();
-            UI.Toggle("", ref value);
+            ModKit.UI.Toggle("", ref value);
             Label(text, width);
             GUILayout.EndHorizontal();
         }
@@ -77,7 +77,7 @@ namespace AlarmClock
             padding = new RectOffset(5, 5, 0, 0)
         };
 
-        public static readonly GUIStyle ElementBoxStyle = new GUIStyle(UI.textBoxStyle)
+        public static readonly GUIStyle ElementBoxStyle = new GUIStyle(ModKit.UI.textBoxStyle)
         {
             richText = true,
             fixedHeight = 20,
@@ -158,16 +158,16 @@ namespace AlarmClock
                 fixedHeight = scale
             };
 
-            UI.Label(" ", style);
+            ModKit.UI.Label(" ", style);
         }
 
         public static void TabButton(string title, Sprite icon, Action action, float width = 200)
         {
-            using (UI.HorizontalScope(ElementBoxStyle))
+            using (ModKit.UI.HorizontalScope(ElementBoxStyle))
             {
                 Icon(icon, 32);
-                UI.Space(10);
-                UI.ActionButton(title.ToUpper().bold(), action, TabButtonStyle, UI.MinWidth(158));
+                ModKit.UI.Space(10);
+                ModKit.UI.ActionButton(title.ToUpper().bold(), action, TabButtonStyle, ModKit.UI.MinWidth(158));
             }
         }
 
@@ -175,11 +175,11 @@ namespace AlarmClock
         {
             var buttonWidth = width - 42;
 
-            using (UI.HorizontalScope(ElementBoxStyle, UI.MinWidth(width), UI.MaxWidth(width)))
+            using (ModKit.UI.HorizontalScope(ElementBoxStyle, ModKit.UI.MinWidth(width), ModKit.UI.MaxWidth(width)))
             {
                 Icon(icon);
-                UI.Space(10);
-                UI.ActionButton(title.ToUpper().bold(), action, IconButtonStyle, UI.MinWidth(buttonWidth), UI.MaxWidth(buttonWidth));
+                ModKit.UI.Space(10);
+                ModKit.UI.ActionButton(title.ToUpper().bold(), action, IconButtonStyle, ModKit.UI.MinWidth(buttonWidth), ModKit.UI.MaxWidth(buttonWidth));
             }
         }
 
@@ -197,49 +197,49 @@ namespace AlarmClock
                 margin = new RectOffset(5, 5, 10, 0)
             };
 
-            UI.ActionButton("  ", action, style);
+            ModKit.UI.ActionButton("  ", action, style);
         }
 
         public static void TextField(ref string text, int width)
         {
-            text = GUILayout.TextField(text, TextFieldStyle, UI.MinWidth(width), UI.MaxWidth(width));
+            text = GUILayout.TextField(text, TextFieldStyle, ModKit.UI.MinWidth(width), ModKit.UI.MaxWidth(width));
         }
 
         public static void IconTextField(ref string text, Sprite icon, int width)
         {
             var textFieldWidth = width - 42;
-            using (UI.HorizontalScope(ElementBoxStyle, UI.MinWidth(width), UI.MaxWidth(width)))
+            using (ModKit.UI.HorizontalScope(ElementBoxStyle, ModKit.UI.MinWidth(width), ModKit.UI.MaxWidth(width)))
             {
                 Icon(icon, 32);
-                UI.Space(10);
-                text = GUILayout.TextField(text, IconTextFieldStyle, UI.MinWidth(textFieldWidth),
-                    UI.MaxWidth(textFieldWidth));
+                ModKit.UI.Space(10);
+                text = GUILayout.TextField(text, IconTextFieldStyle, ModKit.UI.MinWidth(textFieldWidth),
+                    ModKit.UI.MaxWidth(textFieldWidth));
             }
         }
 
         public static void Label(string text, int width = 200)
         {
-            UI.Label(text, LabelStyle, UI.MinWidth(width), UI.MaxWidth(width));
+            ModKit.UI.Label(text, LabelStyle, ModKit.UI.MinWidth(width), ModKit.UI.MaxWidth(width));
         }
 
         public static void LabelRight(string text, int width = 200)
         {
-            UI.Label(text, LabelStyleRight, UI.MinWidth(width), UI.MaxWidth(width));
+            ModKit.UI.Label(text, LabelStyleRight, ModKit.UI.MinWidth(width), ModKit.UI.MaxWidth(width));
         }
 
         public static void Header(string text, int width = 200)
         {
-            UI.Label(text, HeaderStyle, UI.MinWidth(width), UI.MaxWidth(width));
+            ModKit.UI.Label(text, HeaderStyle, ModKit.UI.MinWidth(width), ModKit.UI.MaxWidth(width));
         }
 
         public static void IconLabel(string text, Sprite icon, int width = 200, int iconSize = 40)
         {
             var textFieldWidth = width - iconSize - 10;
-            using (UI.HorizontalScope(ClearBoxStyle, UI.MinWidth(width), UI.MaxWidth(width)))
+            using (ModKit.UI.HorizontalScope(ClearBoxStyle, ModKit.UI.MinWidth(width), ModKit.UI.MaxWidth(width)))
             {
                 Icon(icon, iconSize);
-                UI.Space(10);
-                UI.Label(text, IconLabelStyle, UI.MinWidth(textFieldWidth), UI.MaxWidth(textFieldWidth));
+                ModKit.UI.Space(10);
+                ModKit.UI.Label(text, IconLabelStyle, ModKit.UI.MinWidth(textFieldWidth), ModKit.UI.MaxWidth(textFieldWidth));
             }
         }
     }

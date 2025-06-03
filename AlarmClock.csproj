@@ -18,8 +18,6 @@
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Copy SourceFiles="$(OutputPath)AlarmClock.dll" DestinationFolder="$(TerraInvictaInstallPath)\Mods\Enabled\Alarm Clock" />
 		<Copy SourceFiles="$(OutputPath)ModKit.dll" DestinationFolder="$(TerraInvictaInstallPath)\Mods\Enabled\Alarm Clock" />
-		<Copy SourceFiles="$(OutputPath)alarm_clock" DestinationFolder="$(TerraInvictaInstallPath)\Mods\Enabled\Alarm Clock" />
-		<Copy SourceFiles="$(OutputPath)alarm_clock.manifest" DestinationFolder="$(TerraInvictaInstallPath)\Mods\Enabled\Alarm Clock" />
 	</Target>
 	<ItemGroup>
 		<PackageReference Include="ModKit" Version="1.0.8" />

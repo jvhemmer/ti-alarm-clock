@@ -1,4 +1,5 @@
-﻿using UnityModManagerNet;
+﻿using System.Collections.Generic;
+using UnityModManagerNet;
 
 namespace AlarmClock
 {
@@ -9,6 +10,8 @@ namespace AlarmClock
         public bool PauseOnAlarm = true;
         public bool ShowReminder = true;
         public bool ShowNotification = true;
+
+        public List<Alarm> SavedAlarms = new();
 
         public override void Save(UnityModManager.ModEntry modEntry)
         {
