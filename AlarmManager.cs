@@ -4,10 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime;
-using System.Text;
-using System.Threading.Tasks;
-//using static UnityModManagerNet.UnityModManager;
 
 namespace AlarmClock
 {
@@ -114,13 +110,13 @@ namespace AlarmClock
 
         public static void Load(List<Alarm> SavedAlarms)
         {
-            //Alarms = SavedAlarms ?? new List<Alarm>();
+            Alarms = SavedAlarms ?? new List<Alarm>();
         }
 
         public static void Save()
         {
-            //Main.ModSettings.SavedAlarms = new List<Alarm>(Alarms);
-            //Main.ModSettings.Save(Main.Entry);
+            Main.ModSettings.SavedAlarms = new List<Alarm>(Alarms);
+            Main.ModSettings.Save(Main.Entry);
         }
 
         public static void SaveAlarms(string filepath)
@@ -137,9 +133,11 @@ namespace AlarmClock
             {
                 var json = File.ReadAllText(alarmFile);
                 Alarms = JsonConvert.DeserializeObject<List<Alarm>>(json) ?? new List<Alarm>();
+                Main.Entry?.Logger.Log($"Loaded {Alarms.Count} alarm(s) from {alarmFile}.");
             }
             else
             {
+                Main.Entry?.Logger.Log($"Alarm file not found: {alarmFile}. Initializing empty alarm list.");
                 Alarms = new List<Alarm>();
             }
         }
@@ -148,8 +146,9 @@ namespace AlarmClock
         {
             var saveName = Path.GetFileNameWithoutExtension(filepath);
             var modDir = Path.Combine(UnityModManagerNet.UnityModManager.modsPath, "Alarm Clock");
-            Directory.CreateDirectory(modDir);
-            return Path.Combine(modDir, $"Alarms_{saveName}.json");
+            var alarmsDir = Path.Combine(modDir, "Alarms");
+            Directory.CreateDirectory(alarmsDir);
+            return Path.Combine(alarmsDir, $"Alarms_{saveName}.json");
         }
     }
 }

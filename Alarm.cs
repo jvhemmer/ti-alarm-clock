@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using Newtonsoft.Json;
 using PavonisInteractive.TerraInvicta;
 using PavonisInteractive.TerraInvicta.Systems.GameTime;
 using System;
@@ -21,8 +22,13 @@ namespace AlarmClock
         public bool IsEditing = false;
         public bool HasReminded = false;
         public bool ShowOptions = false;
+
+        [JsonIgnore]
         public bool IsDue => Time <= TITimeState.Now().ExportTime();
+
+        [JsonIgnore]
         public bool IsReminderDue => (Time - TITimeState.Now().ExportTime()).TotalDays <= ReminderDaysBefore;
+
         public bool RemoveOnTrigger = true;
         public bool Triggered = false;
 

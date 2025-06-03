@@ -1,17 +1,14 @@
 ﻿using HarmonyLib;
-
+using ModKit;
+using Newtonsoft.Json;
 using PavonisInteractive.TerraInvicta;
-using PavonisInteractive.TerraInvicta.Systems.GameTime;
-
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-
 using UnityEngine;
 using UnityModManagerNet;
 using static UnityModManagerNet.UnityModManager;
-
-using ModKit;
 
 namespace AlarmClock
 {
@@ -28,7 +25,23 @@ namespace AlarmClock
             harmony.PatchAll();
 
             ModSettings = UnityModManager.ModSettings.Load<Settings>(entry);
-            AlarmManager.Load(ModSettings.SavedAlarms);
+
+            // Migration: Only if global alarms exist and migration hasn't happened yet
+            if (ModSettings.SavedAlarms != null && ModSettings.SavedAlarms.Count > 0)
+            {
+                AlarmManager.Alarms = new List<Alarm>(ModSettings.SavedAlarms);
+
+                // Export global alarms to a file just in case this process fails
+                var globalAlarmsFile = Path.Combine(UnityModManagerNet.UnityModManager.modsPath, "Alarm Clock", "GlobalAlarmsBackup.json");
+                var backupJson = JsonConvert.SerializeObject(AlarmManager.Alarms, Formatting.Indented);
+                File.WriteAllText(globalAlarmsFile, backupJson);
+                Entry?.Logger.Log($"Exported global alarms to {globalAlarmsFile}.");
+
+                // Clear global alarms so this only happens once
+                ModSettings.SavedAlarms.Clear();
+                ModSettings.Save(entry);
+                Entry?.Logger.Log("Migrated global alarms to per-savefile system.");
+            }
 
             //entry.OnSaveGUI = OnSaveGUI;
             entry.OnGUI = OnGUI;
@@ -57,6 +70,8 @@ namespace AlarmClock
         public static void OnGUI(ModEntry entry)
         {
             if (!ModSettings.Enabled || !IsInGame) return;
+
+            //Entry?.Logger.Log("Running OnGUI.");
 
             UI.Draw(ModSettings);
         }

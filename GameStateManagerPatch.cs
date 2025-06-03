@@ -1,6 +1,5 @@
 using HarmonyLib;
 using System.IO;
-using ModKit;
 
 namespace AlarmClock
 {
