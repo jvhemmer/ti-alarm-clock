@@ -114,13 +114,13 @@ namespace AlarmClock
 
         public static void Load(List<Alarm> SavedAlarms)
         {
-            Alarms = SavedAlarms ?? new List<Alarm>();
+            //Alarms = SavedAlarms ?? new List<Alarm>();
         }
 
         public static void Save()
         {
-            Main.ModSettings.SavedAlarms = new List<Alarm>(Alarms);
-            Main.ModSettings.Save(Main.Entry);
+            //Main.ModSettings.SavedAlarms = new List<Alarm>(Alarms);
+            //Main.ModSettings.Save(Main.Entry);
         }
 
         public static void SaveAlarms(string filepath)
