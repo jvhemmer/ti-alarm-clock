@@ -1,5 +1,6 @@
 using HarmonyLib;
 using System.IO;
+using ModKit;
 
 namespace AlarmClock
 {
@@ -10,14 +11,14 @@ namespace AlarmClock
         [HarmonyPostfix]
         public static void SaveAllGameStatesPatch(string filepath)
         {
-            AlarmManager.SaveAlarmsForSave(filepath);
+            AlarmManager.SaveAlarms(filepath);
         }
 
         [HarmonyPatch("LoadAllGameStates")]
         [HarmonyPostfix]
         public static void LoadAllGameStatesPatch(string filepath)
         {
-            AlarmManager.LoadAlarmsForSave(filepath);
+            AlarmManager.LoadAlarms(filepath);
         }
     }
 }

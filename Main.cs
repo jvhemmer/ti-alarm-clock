@@ -24,7 +24,7 @@ namespace AlarmClock
         public static bool Load(ModEntry entry)
         {
             Entry = entry;
-            var harmony = new Harmony(Entry.Info.Id);
+            var harmony = new Harmony(entry.Info.Id);
             harmony.PatchAll();
 
             ModSettings = UnityModManager.ModSettings.Load<Settings>(entry);

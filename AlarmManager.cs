@@ -122,5 +122,34 @@ namespace AlarmClock
             Main.ModSettings.SavedAlarms = new List<Alarm>(Alarms);
             Main.ModSettings.Save(Main.Entry);
         }
+
+        public static void SaveAlarms(string filepath)
+        {
+            var alarmFile = GetAlarmFilePath(filepath);
+            var json = JsonConvert.SerializeObject(Alarms, Formatting.Indented);
+            File.WriteAllText(alarmFile, json);
+        }
+
+        public static void LoadAlarms(string filepath)
+        {
+            var alarmFile = GetAlarmFilePath(filepath);
+            if (File.Exists(alarmFile))
+            {
+                var json = File.ReadAllText(alarmFile);
+                Alarms = JsonConvert.DeserializeObject<List<Alarm>>(json) ?? new List<Alarm>();
+            }
+            else
+            {
+                Alarms = new List<Alarm>();
+            }
+        }
+
+        private static string GetAlarmFilePath(string filepath)
+        {
+            var saveName = Path.GetFileNameWithoutExtension(filepath);
+            var modDir = Path.Combine(UnityModManagerNet.UnityModManager.modsPath, "Alarm Clock");
+            Directory.CreateDirectory(modDir);
+            return Path.Combine(modDir, $"Alarms_{saveName}.json");
+        }
     }
 }
