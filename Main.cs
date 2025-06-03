@@ -12,7 +12,7 @@ using static UnityModManagerNet.UnityModManager;
 
 namespace AlarmClock
 {
-    [EnableReloading]
+    //[EnableReloading]
     public class Main
     {
         public static Settings ModSettings = new Settings();
